@@ -77,7 +77,8 @@ class SingleBlockBasisExpansion(BasisExpansion):
         sampled_basis = sampled_basis[norms, ...]
         
         full_mask = torch.zeros_like(mask)
-        full_mask[mask] = norms.to(torch.uint8)
+        # full_mask[mask] = norms.to(torch.uint8)
+        full_mask[mask] = norms.bool()
         self._mask = full_mask
 
         self.attributes = [attr for b, attr in enumerate(attributes) if norms[b]]
