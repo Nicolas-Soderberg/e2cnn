@@ -45,6 +45,9 @@ class SingleBlockBasisExpansion(BasisExpansion):
         if not any(mask):
             raise EmptyBasisException
 
+        # Convert NumPy boolean array to PyTorch boolean tensor
+        mask = torch.from_numpy(mask).bool()
+
         attributes = [attr for b, attr in enumerate(basis) if mask[b]]
         
         # we need to know the real output size of the basis elements (i.e. without the change of basis and the padding)
