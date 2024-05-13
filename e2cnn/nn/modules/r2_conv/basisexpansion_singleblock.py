@@ -78,7 +78,9 @@ class SingleBlockBasisExpansion(BasisExpansion):
         
         full_mask = torch.zeros_like(mask)
         # full_mask[mask] = norms.to(torch.uint8)
-        full_mask[mask] = norms.bool()
+        #full_mask[mask] = norms.bool()
+        full_mask = torch.zeros_like(mask, dtype=torch.bool)  # Ensure full_mask is also a boolean tensor
+        full_mask[mask] = norms.bool()  # Assign boolean values
         self._mask = full_mask
 
         self.attributes = [attr for b, attr in enumerate(attributes) if norms[b]]
